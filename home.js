@@ -9,7 +9,7 @@ $w.onReady(function () {
         const innerStartIndex = html.indexOf('R$', startIndex);
         const endIndex = html.indexOf('|', innerStartIndex);
         const exchangeRateString = html.substring(innerStartIndex + 10, endIndex).trim();
-        const exchangeRate = parseFloat(exchangeRateString.replace(',', '.'));
+        const exchangeRate = parseFloat(exchangeRateString.replace('.', '').replace(',', '.'));
         return exchangeRate;
         
     }
@@ -60,9 +60,9 @@ $w.onReady(function () {
                 default:
                     newName = item.name;
             }
-			// console.log(item.price)
+			console.log(item.price)
 			// console.log('Un-live Price ' + parseFloat(item.price.replace(',', '.'))*0.2)
-            let price = (parseFloat(item.price.replace(',', '.')) / exchangeRate).toFixed(2);
+            let price = (parseFloat(item.price.replace('.', '').replace(',', '.')) / exchangeRate).toFixed(2);
             newData[newName] = 'US$' + price;
         }
         return newData;
@@ -91,7 +91,9 @@ $w.onReady(function () {
                     $w("#text22").text = `${Object.keys(data)[0]} : ${Object.values(data)[0]}`;
                     $w("#text23").text = `${Object.keys(data)[1]} : ${Object.values(data)[1]}`;
                     $w("#text24").text = `${Object.keys(data)[2]} : ${Object.values(data)[2]}`;
-                    $w('#box4').show();
+                    if (html) {
+                        $w('#box4').show()
+                        }
 
                     if (formFactor == 'Mobile') {
                         animateTextMobile();
